@@ -12,8 +12,8 @@ On importing the library it will try to read the config and private_key and stor
 1. create a config.yaml file with the following keys:
     1. key_public: path to your (registered!) public key
     1. key_private: paty to your private key
-    1. abnurl: the abn api url for your environment, for example "https//api-sandbox.abnamro.com/v1/"
-    1. abnurl_auth: the abn oauth endpoint, for example "https//api-sandbox.abnamro.com/v1/oauth/token"
+    1. abnurl: the abn api url for your environment, for example "https://api-sandbox.abnamro.com/v1/"
+    1. abnurl_auth: the abn oauth endpoint, for example "https://api-sandbox.abnamro.com/v1/oauth/token"
     1. abnurl_auth_aud: the url string that needs to go into the endpoint. for some reason it differs from the actual endpoint url. for example "https://auth-sandbox.abnamro.com/oauth/token"
     1. consumer_key: the consumer key from your registered app
     1. consumer_secret: the consumer secret from your registered app
