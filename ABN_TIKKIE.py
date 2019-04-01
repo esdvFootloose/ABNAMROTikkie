@@ -52,14 +52,18 @@ def fetch_access_token():
         return r
 
 def load_access_token():
-    with open('access_token.dump', 'r') as stream:
-        access_token = stream.read()
+    try:
+        with open('access_token.dump', 'r') as stream:
+            access_token = stream.read()
+    except:
+        access_token = None
 
     headers = {"API-Key": config['consumer_key'], "Authorization": "Bearer {}".format(access_token)}
     r = requests.get(config['abnurl'] + "tikkie", headers=headers)
     if r.status_code != 404: #not found means that the access_token passed
         try:
-            if r.json()['errors'][0]['category'] == 'ACCESS_TOKEN_EXPIRED':
+            if r.json()['errors'][0]['category'] == 'ACCESS_TOKEN_EXPIRED' or \
+                    r.json()['errors'][0]['category'] == 'INVALID_ACCESS_TOKEN':
                 access_token = fetch_access_token()
             else:
                 return None
