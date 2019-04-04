@@ -98,6 +98,9 @@ def get_platforms(access_token):
         return r
 
 def get_my_platform_token(access_token):
+    if 'platform_token' in config:
+            return True, config['platform_token']
+
     platforms = get_platforms(access_token)
     for platform in platforms:
         if platform['name'] == config['platform_name']:
@@ -139,6 +142,8 @@ def get_users(access_token, platform_token=None):
         return r
 
 def get_my_user_token(access_token, platform_token=None):
+    if 'user_token' in config:
+        return True, config['user_token']
     users = get_users(access_token, platform_token=platform_token)
     for user in users:
         if user['name'] == config['user_name']:
@@ -150,6 +155,9 @@ def get_my_user_token(access_token, platform_token=None):
 
 #returns both user token and back account token as these are always needed in pair
 def get_my_bank_account_token(access_token, platform_token=None):
+    if 'iban_token' in config:
+        return True, config['iban_token']
+
     users = get_users(access_token, platform_token=platform_token)
     for user in users:
         if user['name'] == config['user_name']:
