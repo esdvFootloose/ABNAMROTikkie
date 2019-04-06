@@ -155,8 +155,8 @@ def get_my_user_token(access_token, platform_token=None):
 
 #returns both user token and back account token as these are always needed in pair
 def get_my_bank_account_token(access_token, platform_token=None):
-    if 'iban_token' in config:
-        return True, config['iban_token']
+    if 'iban_token' in config and 'user_token' in config:
+        return True, config['user_token'], config['iban_token']
 
     users = get_users(access_token, platform_token=platform_token)
     for user in users:
