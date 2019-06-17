@@ -18,13 +18,25 @@ if __name__== "__main__":
         sys.exit(-1)
 
     if mode == 'fetch':
-        res = get_payment_requests(access_token)
-        if type(res) == dict:
-            print(json.dumps(res))
-            sys.exit(0)
-        else:
-            print(json.dumps(res.json()))
-            sys.exit(1)
+        requests = []
+        offset = 0
+        while True:
+            res = get_payment_requests(access_token, offset=offset)
+            if type(res) == dict:
+                requests += res['paymentRequests']
+                if res['totalElements'] == 100:
+                    offset += 100
+                    continue
+                else:
+                    results = {
+                        "totalElements" : len(requests),
+                        "paymentRequests" : requests
+                    }
+                    print(json.dumps(results))
+                    sys.exit(0)
+            else:
+                print(json.dumps(res.json()))
+                sys.exit(1)
     elif mode == 'request':
         res = create_payment_request(access_token, amount, description, externalid)
         if type(res) == dict:
